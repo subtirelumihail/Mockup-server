@@ -4,6 +4,10 @@ import geolib from 'geolib';
 
 var app = express();
 
+const config = {
+  port: 8082
+}
+
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
@@ -127,11 +131,11 @@ const infos = [
   }
 ]
 
-app.get('/info', function (req, res) {
+app.get('/info', (req, res) => {
   res.json(infos);
 });
 
-app.post('/medicamente', function (req, res) {
+app.post('/medicamente', (req, res) => {
   const searchString = req.body.search.toLowerCase().trim();
   const filterMedicamente = medicamente.filter((m) => {
     let name = m.name.toLowerCase().trim();
@@ -140,12 +144,11 @@ app.post('/medicamente', function (req, res) {
   res.json(filterMedicamente);
 });
 
-app.post('/farmacii', function (req, res) {
-  console.log(req.body);
+app.post('/farmacii', (req, res) => {
   const closest = geolib.findNearest(req.body.coords, farmacii, 0, 3);
   res.json(Array.isArray(closest) ? closest : [closest]);
 });
 
-app.listen(8082, function () {
-  console.log('Server is on 8082 !!');
+app.listen(config.port, function () {
+  console.log(`Server is on ${config.port} !!`);
 });
