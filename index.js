@@ -147,5 +147,5 @@ app.post('/farmacii', function (req, res) {
 });
 
 app.listen(8082, function () {
-  console.log('Server is on 808 !!');
+  console.log('Server is on 8082 !!');
 });
