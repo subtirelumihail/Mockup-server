@@ -5,7 +5,7 @@ import geolib from 'geolib';
 var app = express();
 
 const config = {
-  port: 8082
+  port: 8080
 }
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
