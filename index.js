@@ -146,6 +146,6 @@ app.post('/farmacii', function (req, res) {
   res.json(Array.isArray(closest) ? closest : [closest]);
 });
 
-app.listen(8082, function () {
-  console.log('Server is on 8082 !!');
+app.listen(80, function () {
+  console.log('Server is on 80 !!');
 });
