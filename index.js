@@ -146,6 +146,8 @@ const infos = [
   }
 ]
 
+app.use(express.static('apk'));
+
 app.get('/info', (req, res) => {
   res.json(infos);
 });
