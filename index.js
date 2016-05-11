@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import geolib from 'geolib';
 import _ from 'lodash';
+import morgan from 'morgan';
 
 // Models
 import Medicamente from './models/medicamente';
@@ -12,6 +13,7 @@ const config = {
   port: 8080
 }
 
+app.use(morgan('combined'));
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
@@ -63,8 +65,21 @@ app.get('/info', (req, res) => {
 
 app.post('/medicamente', (req, res) => {
   const {title} = req.body;
-  const meds = {}
-  res.json(meds);
+  Medicamente.findAll({
+    where: {
+      denumire: {
+        $like: `${title}%`
+      }
+    },
+    limit: 200
+  }).then( data => {
+    const autocompleteData = _.map(data, i => {
+      let title = i.denumire.split(/\W+/g);
+      data.denumire = title[0].trim();
+      return data;
+    });
+    res.json(autocompleteData[0]);
+  });
 });
 
 app.post('/medicamente/autocomplete', (req, res) => {
@@ -78,15 +93,12 @@ app.post('/medicamente/autocomplete', (req, res) => {
     },
     limit: 1000
   }).then( data => {
-    //FIlter data
     const autocompleteData = _.map(data, i => {
       let title = i.denumire.split(/\W+/g);
       return title[0].trim();
     });
-    
     res.json(_.uniq(autocompleteData).slice(0, 20));
   });
-  
 });
 
 // app.post('/farmacii', (req, res) => {
