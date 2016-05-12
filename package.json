@@ -1,14 +1,16 @@
 {
-  "name": "faramacy-server",
+  "name": "pharmacy-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js --exec babel-node",
-    "migration": "babel-node migrations/medicamente.js",
+    "meds-migration": "babel-node migrations/medicamente.js",
+    "pharma-migration": "babel-node migrations/farmacii.js",
+    "migration": "babel-node migrations/index.js",
     "start": "babel-node index.js"
   },
-  "author": "",
+  "author": "Subtirelu Mihail",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.0",
