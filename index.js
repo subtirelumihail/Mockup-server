@@ -78,7 +78,7 @@ app.post('/medicamente', (req, res) => {
       data.denumire = title[0].trim();
       return data;
     });
-    res.json(autocompleteData[0]);
+    res.json(_.uniqBy(autocompleteData[0], 'denumire'));
   });
 });
 
