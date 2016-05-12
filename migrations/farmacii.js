@@ -30,7 +30,7 @@ export default class FarmaciiMigration {
 
       await Farmacii.create({
         id_intern:   pharmacy[0],
-        denumire:    title[1],
+        denumire:    title[1].trim(),
         oras:        pharmacy[2],
         adresa:      pharmacy[3],
         latitudine:  pharmacy[4],

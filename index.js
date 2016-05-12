@@ -6,6 +6,7 @@ import morgan from 'morgan';
 
 // Models
 import Medicamente from './models/medicamente';
+import Farmacii from './models/farmacii';
 
 var app = express();
 
@@ -101,10 +102,33 @@ app.post('/medicamente/autocomplete', (req, res) => {
   });
 });
 
-// app.post('/farmacii', (req, res) => {
-//   const closest = geolib.findNearest(req.body.coords, farmacii, 0, 3);
-//   res.json(Array.isArray(closest) ? closest : [closest]);
-// });
+app.post('/farmacii', (req, res) => {
+  const {latitude, longitude} = req.body;
+  
+  Farmacii.findAll({
+    limit: 1000
+  }).then( data => {
+    let arr = {};
+    var pharmacies = data.map( pharma => {
+      let latitude = Number(pharma.dataValues.latitudine);
+      let longitudine = Number(pharma.dataValues.longitudine);
+      let id = pharma.dataValues.id;
+
+      if (!isNaN(longitudine) && !isNaN(latitude) && pharma.dataValues.denumire) {
+        arr[id] = {
+          address: pharma.dataValues.adresa,
+          title: pharma.dataValues.denumire.trim(),
+          longitude: Number(pharma.dataValues.longitudine),
+          latitude: Number(pharma.dataValues.latitudine),
+        }
+      }
+    })
+    const closest = geolib.findNearest({latitude: latitude, longitude: longitude}, arr, 0, 20);
+    const locations = Array.isArray(closest) ? closest : [closest];
+
+    res.json(locations);
+  });
+});
 
 app.listen(config.port, function () {
   console.log(`Server is on ${config.port} !!`);
