@@ -116,8 +116,7 @@ app.post('/farmacii', (req, res) => {
 
       if (!isNaN(longitudine) && !isNaN(latitude) && pharma.dataValues.denumire) {
         arr[id] = {
-          address: pharma.dataValues.adresa,
-          title: pharma.dataValues.denumire.trim(),
+          data: pharma.dataValues,
           longitude: Number(pharma.dataValues.longitudine),
           latitude: Number(pharma.dataValues.latitudine),
         }
