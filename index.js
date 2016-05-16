@@ -105,18 +105,26 @@ app.post('/medicamente/autocomplete', (req, res) => {
 app.post('/farmacii', (req, res) => {
   const {latitude, longitude, program} = req.body;
   
+  const programMapping = {
+    'toate': '',
+    'non-stop': 'NON STOP'
+  }
+  
   var queryOpt = {
     limit: 1000
   }
   
-  if (program) {
+  if (programMapping[program]) {
     queryOpt.where = {
-      program: program
+      program: programMapping[program]
     }
   }
   
+  console.log('x', queryOpt);
+  
   Farmacii.findAll(queryOpt).then( data => {
     let arr = {};
+
     var pharmacies = data.map( pharma => {
       let latitude = Number(pharma.dataValues.latitudine);
       let longitudine = Number(pharma.dataValues.longitudine);
