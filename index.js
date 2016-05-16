@@ -103,10 +103,13 @@ app.post('/medicamente/autocomplete', (req, res) => {
 });
 
 app.post('/farmacii', (req, res) => {
-  const {latitude, longitude} = req.body;
+  const {latitude, longitude, program} = req.body;
   
   Farmacii.findAll({
-    limit: 1000
+    limit: 1000,
+    where: {
+      program: program || 'normal'
+    },
   }).then( data => {
     let arr = {};
     var pharmacies = data.map( pharma => {

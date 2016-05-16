@@ -35,6 +35,7 @@ export default class FarmaciiMigration {
         adresa:      pharmacy[3],
         latitudine:  pharmacy[4],
         longitudine: pharmacy[5],
+        program:     pharmacy[6],
       });
       
       if (key + 1 >= this.datLength) {
