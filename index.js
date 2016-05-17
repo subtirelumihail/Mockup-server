@@ -120,8 +120,6 @@ app.post('/farmacii', (req, res) => {
     }
   }
   
-  console.log('x', queryOpt);
-  
   Farmacii.findAll(queryOpt).then( data => {
     let arr = {};
 
