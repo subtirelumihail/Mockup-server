@@ -23,6 +23,12 @@ const Farmacii = connection.define('farmacii', {
   program: {
     type: Sequelize.STRING
   },
+  telefon: {
+    type: Sequelize.STRING
+  },
+  logo: {
+    type: Sequelize.STRING
+  },
 }, {
   freezeTableName: true // Model tableName will be the same as the model name
 });

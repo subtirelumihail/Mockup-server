@@ -7,6 +7,7 @@ import morgan from 'morgan';
 // Models
 import Medicamente from './models/medicamente';
 import Farmacii from './models/farmacii';
+import Spitale from './models/spitale';
 
 var app = express();
 
@@ -104,22 +105,22 @@ app.post('/medicamente/autocomplete', (req, res) => {
 
 app.post('/farmacii', (req, res) => {
   const {latitude, longitude, program} = req.body;
-  
+
   const programMapping = {
     'toate': '',
     'non-stop': 'NON STOP'
   }
-  
+
   var queryOpt = {
     limit: 1000
   }
-  
+
   if (programMapping[program]) {
     queryOpt.where = {
       program: programMapping[program]
     }
   }
-  
+
   Farmacii.findAll(queryOpt).then( data => {
     let arr = {};
 
@@ -136,8 +137,51 @@ app.post('/farmacii', (req, res) => {
         }
       }
     })
-    const closest = geolib.findNearest({latitude: latitude, longitude: longitude}, arr, 0, 20);
-    const locations = Array.isArray(closest) ? closest : [closest];
+    
+    let locations;
+
+    if (latitude && longitude) {
+      const closest = geolib.findNearest({latitude: latitude, longitude: longitude}, arr, 0, 20);
+     locations = Array.isArray(closest) ? closest : [closest];
+    } else {
+      locations = arr;
+    }
+
+    res.json(locations);
+  });
+});
+
+app.post('/spitale', (req, res) => {
+  const {latitude, longitude, program} = req.body;
+  var queryOpt = {
+    limit: 1000
+  }
+
+  Spitale.findAll(queryOpt).then( data => {
+    let arr = {};
+
+    var spitale = data.map( hospital => {
+      let latitude = Number(hospital.dataValues.latitudine);
+      let longitudine = Number(hospital.dataValues.longitudine);
+      let id = hospital.dataValues.id;
+
+      if (!isNaN(longitudine) && !isNaN(latitude) && hospital.dataValues.denumire) {
+        arr[id] = {
+          data: hospital.dataValues,
+          longitude: Number(hospital.dataValues.longitudine),
+          latitude: Number(hospital.dataValues.latitudine),
+        }
+      }
+    })
+
+    let locations;
+
+    if (latitude && longitude) {
+      const closest = geolib.findNearest({latitude: latitude, longitude: longitude}, arr, 0, 20);
+     locations = Array.isArray(closest) ? closest : [closest];
+    } else {
+      locations = arr;
+    }
 
     res.json(locations);
   });
