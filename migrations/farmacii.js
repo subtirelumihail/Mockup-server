@@ -26,11 +26,9 @@ export default class FarmaciiMigration {
   // Insert one at a time
   async insertPharmacies(pharmacy, key) {
     try {
-      const title = pharmacy[0].split(','); //This should be deleted
-
       await Farmacii.create({
         id_intern:   pharmacy[0],
-        denumire:    title[1] ? title[1].trim() : pharmacy[0],
+        denumire:    pharmacy[0],
         oras:        pharmacy[2],
         adresa:      pharmacy[3],
         latitudine:  pharmacy[4],
