@@ -41,21 +41,6 @@ const infos = [
     title: 'Vaccin pneumococic',
     content: 'Vaccinurile pneumococice sunt preparate antigenice folosite pentru imunizare împotriva diferitelor tulpini de Streptococcus pneumoniae (pneumococ). Scopul vaccinării cu un vaccin pneumococic este de a preveni boala pneumococică invazivă, amenințătoare de viață, și, în mai mică măsură, alte infecții localizate produse de acest germen patogen. \n\nVaccinurile pneumococice asigură protecție exclusiv împotriva serotipurilor de S. pneumoniae incluse în vaccin, nu și împotriva altor serotipuri de pneumococ și nici împotriva altor microorganisme care determină boli invazive, de exemplu Haemophilus influenzae sau Neisseria meningitidis (meningococul). Împotriva acestor germeni există alte vaccinuri specifice.',
     url: 'https://ro.wikipedia.org/wiki/Vaccin_pneumococic'
-  },
-  {
-    title: 'Lorem ipsum dolore',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  \n\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    url: 'https://lorem.com'
-  },
-  {
-    title: 'Lorem ipsum dolore',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  \n\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    url: 'https://lorem.com'
-  },
-  {
-    title: 'Lorem ipsum dolore',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  \n\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    url: 'https://lorem.com'
   }
 ]
 
@@ -137,7 +122,7 @@ app.post('/farmacii', (req, res) => {
         }
       }
     })
-    
+
     let locations;
 
     if (latitude && longitude) {
