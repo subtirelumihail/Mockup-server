@@ -7,17 +7,17 @@ import Spitale from '../models/spitale';
 
 export default class SpitaleMigration {
 
-  constructor() {
+  constructor(folder = 'files') {
     this.workSheetsFromFile = [];
     this.index = 0;
-
+    this.folder = folder
     this.parseFiles();
   }
 
   // Parse the filtered xlsx
   parseFiles(cb) {
     console.log(chalk.yellow('Parsing spitale file'));
-    this.workSheetsFromFile = parse('files/spitale.xlsx');
+    this.workSheetsFromFile = parse(`${this.folder}/spitale.xlsx`);
     console.log(chalk.green('Spitale file parsed!'));
 
     this.syncDB();

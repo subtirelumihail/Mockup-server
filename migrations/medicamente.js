@@ -8,16 +8,17 @@ import Medicamente from '../models/medicamente';
 
 export default class MedicamenteMigration {
 
-  constructor() {
+  constructor(folder = 'files') {
     this.workSheetsFromFile = [];
     this.datLength = 0;
+    this.folder = folder
     this.parseFiles();
   }
 
   // Parse the filtered xlsx
   parseFiles(cb) {
     console.log(chalk.yellow('Parsing meds file'));
-    this.workSheetsFromFile = parse('files/meds.xlsx');
+    this.workSheetsFromFile = parse(`${this.folder}/meds.xlsx`);
     console.log(chalk.green('Meds file parsed!'));
 
     this.datLength = this.workSheetsFromFile[0].data.length;

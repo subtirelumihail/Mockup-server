@@ -7,17 +7,17 @@ import Farmacii from '../models/farmacii';
 
 export default class FarmaciiMigration {
 
-  constructor() {
+  constructor(folder = 'files') {
     this.workSheetsFromFile = [];
     this.index = 0;
-
+    this.folder = folder
     this.parseFiles();
   }
 
   // Parse the filtered xlsx
   parseFiles(cb) {
     console.log(chalk.yellow('Parsing farmacii file'));
-    this.workSheetsFromFile = parse('files/farmacii.xlsx');
+    this.workSheetsFromFile = parse(`${this.folder}/farmacii.xlsx`);
     console.log(chalk.green('Farmacii file parsed!'));
 
     this.syncDB();
